@@ -19,6 +19,9 @@ public class EstoqueModel implements Serializable {
     @Column
     private String produto;
 
+    @Column
+    private boolean isRented;
+
     private enum Genero{
         TERROR, ROMANCE, COMEDIA, DOCUMENTARIO, DRAMA, AVENTURA, FANTASIA, INFANTIL
     }
@@ -49,5 +52,13 @@ public class EstoqueModel implements Serializable {
 
     public void setGenero(Genero genero) {
         this.genero = genero;
+    }
+
+    public boolean isRented() {
+        return isRented;
+    }
+
+    public void setRented(boolean rented) {
+        isRented = rented;
     }
 }

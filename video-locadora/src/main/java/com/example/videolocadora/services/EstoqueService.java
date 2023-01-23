@@ -33,8 +33,10 @@ public class EstoqueService {
         return estoqueRepository.findById(id);
     }
 
+    public Optional<EstoqueModel> findByProduto(String produto) {return estoqueRepository.findByProduto(produto);}
+
     @Transactional
-    public void deleteById(UUID id){
-        estoqueRepository.deleteById(id);
+    public void deleteByProduto(String produto){
+        estoqueRepository.deleteByProduto(produto);
     }
 }

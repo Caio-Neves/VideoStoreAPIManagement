@@ -10,6 +10,9 @@ public class EstoqueDTO {
     @NotBlank
     private String genero;
 
+    @NotBlank
+    private boolean isRented;
+
     public String getProduto() {
         return produto;
     }
@@ -24,5 +27,13 @@ public class EstoqueDTO {
 
     public void setGenero(String genero) {
         this.genero = genero;
+    }
+
+    public boolean isRented() {
+        return isRented;
+    }
+
+    public void setRented(boolean rented) {
+        isRented = rented;
     }
 }

@@ -4,6 +4,7 @@ import jakarta.validation.constraints.NotBlank;
 import org.hibernate.validator.constraints.br.CPF;
 import org.springframework.data.annotation.CreatedDate;
 
+import java.time.LocalDateTime;
 import java.util.Date;
 
 public class LocadoraDTO {
@@ -19,6 +20,9 @@ public class LocadoraDTO {
 
     @NotBlank
     private String telefone;
+
+    @NotBlank
+    private LocalDateTime dataCompra;
 
     @NotBlank
     private String dataDevolucao;
@@ -72,5 +76,13 @@ public class LocadoraDTO {
 
     public void setProduto(String produto) {
         this.produto = produto;
+    }
+
+    public LocalDateTime getDataCompra() {
+        return dataCompra;
+    }
+
+    public void setDataCompra(LocalDateTime dataCompra) {
+        this.dataCompra = dataCompra;
     }
 }

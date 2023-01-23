@@ -1,6 +1,7 @@
 package com.example.videolocadora.dtos;
 
 import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
 
 public class EstoqueDTO {
 
@@ -10,7 +11,7 @@ public class EstoqueDTO {
     @NotBlank
     private String genero;
 
-    @NotBlank
+    @NotNull
     private boolean isRented;
 
     public String getProduto() {

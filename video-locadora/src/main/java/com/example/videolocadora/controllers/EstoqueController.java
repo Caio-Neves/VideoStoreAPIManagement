@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.UUID;
 
 @RestController
 @CrossOrigin(origins = "*", maxAge = 3600)
@@ -33,7 +34,7 @@ public class EstoqueController {
     @GetMapping
     public ResponseEntity<List<EstoqueModel>> findAllProducts(){return ResponseEntity.status(HttpStatus.OK).body(estoqueService.findAll());}
 
-    @GetMapping("/{nome}")
+    @GetMapping("/{produto}")
     public ResponseEntity<Object> findProductByName(@PathVariable(value = "produto") String produto){
         Optional<EstoqueModel> estoqueModelOptional = estoqueService.findByProduto(produto);
 
@@ -44,10 +45,21 @@ public class EstoqueController {
         return ResponseEntity.status(HttpStatus.OK).body(estoqueModelOptional.get());
     }
 
-    @DeleteMapping
-    public ResponseEntity<Object> deleteByProduct(@PathVariable(value = "produto") String produto){
+    @GetMapping("/{id}")
+    public ResponseEntity<Object> findProductByName(@PathVariable(value = "id") UUID id){
+        Optional<EstoqueModel> estoqueModelOptional = estoqueService.findById(id);
 
-        Optional<EstoqueModel> estoqueModelOptional = estoqueService.findByProduto(produto);
+        if(!estoqueModelOptional.isPresent()){
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Conflict: Product not found!");
+        }
+
+        return ResponseEntity.status(HttpStatus.OK).body(estoqueModelOptional.get());
+    }
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Object> deleteById(@PathVariable(value = "id") UUID id){
+
+        Optional<EstoqueModel> estoqueModelOptional = estoqueService.findById(id);
 
         if(!estoqueModelOptional.isPresent()){
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Conflict: Prodct not found!");
@@ -57,19 +69,18 @@ public class EstoqueController {
         return ResponseEntity.status(HttpStatus.OK).body("Product deleted succesfully!");
     }
 
-    @PutMapping
-    public  ResponseEntity<Object> updateProduct(@PathVariable(value = "produto") String produto,
+    @PutMapping("/{id}")
+    public  ResponseEntity<Object> updateProduct(@PathVariable(value = "id") UUID id,
                                                  @RequestBody @Valid EstoqueDTO estoqueDTO){
-        Optional<EstoqueModel> estoqueModelOptional = estoqueService.findByProduto(produto);
+        Optional<EstoqueModel> estoqueModelOptional = estoqueService.findById(id);
 
         if(!estoqueModelOptional.isPresent()){
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Prodct not found!");
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Product not found!");
         }
         var estoqueModel = estoqueModelOptional.get();
         BeanUtils.copyProperties(estoqueDTO, estoqueModel);
         estoqueModel.setId(estoqueModelOptional.get().getId());
 
         return ResponseEntity.status(HttpStatus.OK).body(estoqueService.save(estoqueModel));
-
     }
 }

@@ -13,6 +13,7 @@ import java.time.LocalDateTime;
 import java.time.ZoneId;
 import java.util.List;
 import java.util.Optional;
+import java.util.UUID;
 
 @RestController
 @CrossOrigin(origins="*", maxAge = 3600)
@@ -53,19 +54,31 @@ public class LocadoraController {
         return ResponseEntity.status(HttpStatus.OK).body(locadoraModelOptional.get());
     }
 
-    @DeleteMapping("/{nome}")
-    public ResponseEntity<Object> deleteOrderByName(@PathVariable(value = "nome") String nome,
+    @GetMapping("/{produto}")
+    public ResponseEntity<Object> getOrderByProduct(@PathVariable(value = "produto") String produto){
+        Optional<LocadoraModel> locadoraModelOptional =locadoraService.findByProduto(produto);
+
+        if(!locadoraModelOptional.isPresent()){
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Conflict: Order not exists by name!");
+        }
+
+        return ResponseEntity.status(HttpStatus.OK).body(locadoraModelOptional.get());
+    }
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Object> deleteOrderByName(@PathVariable(value = "id") UUID id,
                                                @RequestBody @Valid LocadoraDTO locadoraDTO){
-        Optional<LocadoraModel> locadoraModelOptional =locadoraService.findByNome(nome);
+        Optional<LocadoraModel> locadoraModelOptional =locadoraService.findById(id);
 
         if(!locadoraModelOptional.isPresent()){
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Not Found: Order by name not found!");
         }
 
+        locadoraService.deleteById(locadoraModelOptional.get().getId());
         return ResponseEntity.status(HttpStatus.OK).body("Order deleted successfully");
     }
 
-    @PutMapping
+    @PutMapping("/{nome}")
     public ResponseEntity<Object> updateOrder(@PathVariable(value = "nome") String nome,
                                               @RequestBody @Valid LocadoraDTO locadoraDTO){
 

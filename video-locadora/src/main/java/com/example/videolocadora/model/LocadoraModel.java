@@ -4,7 +4,6 @@ import jakarta.persistence.*;
 
 import java.io.Serializable;
 import java.time.LocalDateTime;
-import java.util.Date;
 import java.util.UUID;
 
 @Entity
@@ -19,7 +18,7 @@ public class LocadoraModel implements Serializable {
 
     @Column(nullable = false, unique = true)
     private String nome;
-    @Column(nullable = false, unique = true, length = 11)
+    @Column(nullable = false, unique = true, length = 14)
     private String cpf;
     @Column(nullable = false, unique = true)
     private String endereco;
@@ -29,15 +28,16 @@ public class LocadoraModel implements Serializable {
 
     @Column(nullable = false)
     private LocalDateTime dataCompra;
+
     @Column(nullable = false)
     private String dataDevolucao;
+
     @Column(nullable = false)
-    @OneToOne
     private String produto;
 
     @OneToOne
-    @JoinColumn(table = "TB_ESTOQUE", name = "id")
-    private UUID IdProduto;
+    @JoinColumn(name = "produtoId", referencedColumnName = "id")
+    private EstoqueModel estoqueModel;
 
     public UUID getId() {
         return id;
@@ -95,12 +95,12 @@ public class LocadoraModel implements Serializable {
         this.produto = produto;
     }
 
-    public UUID getIdProduto() {
-        return IdProduto;
+    public EstoqueModel getEstoqueModel() {
+        return estoqueModel;
     }
 
-    public void setIdProduto(UUID idProduto) {
-        IdProduto = idProduto;
+    public void setEstoqueModel(EstoqueModel estoqueModel) {
+        this.estoqueModel = estoqueModel;
     }
 
     public String getTelefone() {

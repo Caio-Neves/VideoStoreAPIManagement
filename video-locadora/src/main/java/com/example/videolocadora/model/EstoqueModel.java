@@ -12,23 +12,17 @@ public class EstoqueModel implements Serializable {
     private static final Long serialVersionUID = 1L;
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @OneToOne
-    @JoinColumn(table = "TB_LOCADORA", name = "produtoId")
+    @GeneratedValue(strategy = GenerationType.UUID)
     private UUID id;
+
     @Column
     private String produto;
 
     @Column
     private boolean isRented;
 
-    private enum Genero{
-        TERROR, ROMANCE, COMEDIA, DOCUMENTARIO, DRAMA, AVENTURA, FANTASIA, INFANTIL
-    }
-
     @Column
-    @Enumerated(EnumType.STRING)
-    private Genero genero;
+    private String genero;
 
     public UUID getId() {
         return id;
@@ -46,11 +40,11 @@ public class EstoqueModel implements Serializable {
         this.produto = produto;
     }
 
-    public Genero getGenero() {
+    public String getGenero() {
         return genero;
     }
 
-    public void setGenero(Genero genero) {
+    public void setGenero(String genero) {
         this.genero = genero;
     }
 

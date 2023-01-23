@@ -32,5 +32,5 @@ public class LocadoraService {
 
     public Optional<LocadoraModel> findByProduto(String produto){return locadoraRepository.findByProduto(produto);}
 
-    public void deleteByProduto(String produto){locadoraRepository.deleteByProduto(produto);}
+    public void deleteById(UUID id){locadoraRepository.deleteById(id);}
 }

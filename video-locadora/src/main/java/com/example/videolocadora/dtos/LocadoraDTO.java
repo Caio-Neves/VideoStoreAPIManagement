@@ -1,5 +1,6 @@
 package com.example.videolocadora.dtos;
 
+import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import org.hibernate.validator.constraints.br.CPF;
@@ -16,6 +17,10 @@ public class LocadoraDTO {
 
     @NotBlank
     private String endereco;
+
+    @NotBlank
+    @Email
+    private String email;
 
     @NotBlank
     private String telefone;
@@ -83,5 +88,13 @@ public class LocadoraDTO {
 
     public void setProdutoId(String produtoId) {
         this.produtoId = produtoId;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
     }
 }

@@ -23,6 +23,9 @@ public class LocadoraModel implements Serializable {
     @Column(nullable = false, unique = true)
     private String endereco;
 
+    @Column(nullable = false, unique = false)
+    private String email;
+
     @Column(nullable = false, unique = true, length = 11)
     private String telefone;
 
@@ -109,5 +112,13 @@ public class LocadoraModel implements Serializable {
 
     public void setTelefone(String telefone) {
         this.telefone = telefone;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
     }
 }

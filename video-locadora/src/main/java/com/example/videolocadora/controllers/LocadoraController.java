@@ -1,7 +1,10 @@
 package com.example.videolocadora.controllers;
 
+import com.example.videolocadora.dtos.EmailDTO;
 import com.example.videolocadora.dtos.LocadoraDTO;
+import com.example.videolocadora.model.EmailModel;
 import com.example.videolocadora.model.LocadoraModel;
+import com.example.videolocadora.services.EmailService;
 import com.example.videolocadora.services.LocadoraService;
 import jakarta.validation.Valid;
 import org.springframework.beans.BeanUtils;
@@ -20,10 +23,15 @@ import java.util.UUID;
 @RequestMapping(value = "/locadora")
 public class LocadoraController {
 
-    final LocadoraService locadoraService;
 
-    public LocadoraController(LocadoraService locadoraService) {
+    final LocadoraService locadoraService;
+    final EmailService emailService;
+    final EmailController emailController;
+
+    public LocadoraController(LocadoraService locadoraService, EmailService emailService, EmailController emailCOntroller, EmailController emailController) {
         this.locadoraService = locadoraService;
+        this.emailService = emailService;
+        this.emailController = emailController;
     }
 
     @PostMapping
@@ -33,9 +41,16 @@ public class LocadoraController {
         }
 
         var locadoraModel = new LocadoraModel();
+        var emailDTO = new EmailDTO();
 
         BeanUtils.copyProperties(locadoraDTO, locadoraModel);
         locadoraModel.setDataCompra(LocalDateTime.now(ZoneId.of("UTC")));
+
+        emailDTO.setEmailFrom("nevescaioneves@gmail.com");
+        emailDTO.setEmailTo(locadoraModel.getEmail());
+        emailDTO.setSubject("Pedido efetuado com sucesso!");
+        emailDTO.setText("Olá senhor(a) " + locadoraModel.getNome() + "o filme " + locadoraModel.getProduto() + "foi alugado! " + "\nData de devolução: " + locadoraModel.getDataDevolucao());
+        emailController.sendEmail(emailDTO);
 
         return ResponseEntity.status(HttpStatus.CREATED).body(locadoraService.save(locadoraModel));
     }

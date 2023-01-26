@@ -4,7 +4,10 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="affa4af4-8af1-4afa-a31f-37797c1f7bec" name="Changes" comment="" />
+    <list default="true" id="affa4af4-8af1-4afa-a31f-37797c1f7bec" name="Changes" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/video-locadora/src/main/resources/application.properties" beforeDir="false" afterPath="$PROJECT_DIR$/video-locadora/src/main/resources/application.properties" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -40,7 +43,7 @@
   "keyToString": {
     "RunOnceActivity.OpenProjectViewOnStart": "true",
     "RunOnceActivity.ShowReadmeOnStart": "true",
-    "last_opened_file_path": "C:/Users/alevandre/Desktop/VideoStoreAPIManagement"
+    "last_opened_file_path": "C:/Users/alevandre/Desktop/ms-email"
   }
 }]]></component>
   <component name="RecentsManager">
